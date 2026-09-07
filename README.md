@@ -33,7 +33,15 @@ The result is that the same user id and the same phone number appear in the firs
 
 `api.gokwik.co`, `kwikcart.gokwik.co`, `pdp.gokwik.co/merchant-integration/`, and `pdp.gokwik.co/build/gokwik.js`.
 
-These carry cart, checkout and payment. This was checked rather than assumed: `merchant.integration.js` contains no reference to the KwikPass bundle, fires the `gokwikLoaded` event that enables Buy Now buttons by itself, and loads the checkout from `pdp.gokwik.co/build/gokwik.js` — a different path from the `/kwikpass/` one this list blocks. Its references to `sdk.gokwik.co` and `gkx.gokwik.co` are to an object named `gokwik-analytics-sdk`, used only to send event hits. Blocking them prevents people completing purchases on hundreds of stores, which would make this list something people uninstall rather than something they keep. **Pull requests adding them will be declined.**
+These carry cart, checkout and payment. Blocking them would stop people completing purchases on hundreds of stores, which would make this list something people uninstall rather than something they keep. **Pull requests adding them will be declined.**
+
+That the remaining rules leave checkout intact was checked rather than assumed. Reading `merchant.integration.js`, the script this list deliberately allows:
+
+- it contains **no reference to the KwikPass bundle**, and fires the `gokwikLoaded` event that enables Buy Now and checkout buttons by itself;
+- it loads the checkout from `pdp.gokwik.co/build/gokwik.js` — a different path from the `/kwikpass/` one blocked here, which is why that rule is path-scoped rather than a whole-host block;
+- its references to `sdk.gokwik.co` and `gkx.gokwik.co` resolve to an object named `gokwik-analytics-sdk`, used only to send event hits.
+
+That check is also what surfaced `hits.gokwik.co`, which is in the blocklist above.
 
 ## Install
 
