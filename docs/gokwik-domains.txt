@@ -1,0 +1,25 @@
+# Leave Me Alone — GoKwik Identity Blocklist (plain domain format)
+# For Pi-hole, AdGuard Home, NextDNS, hosts files and other DNS blockers.
+# Homepage: https://github.com/vagxrth/leave-me-alone
+# License: CC BY-SA 3.0
+# Last modified: 7 Sep 2026
+#
+# NOTE ON DNS BLOCKING
+# DNS blockers work per hostname and cannot match on paths. The Adblock
+# version of this list blocks only pdp.gokwik.co/kwikpass/ and leaves the
+# rest of that host alone, because it also serves the script some themes
+# need for their checkout button. DNS cannot make that distinction, so
+# pdp.gokwik.co is listed separately at the bottom as opt-in.
+
+# --- Safe to block: identity API, fingerprinting, telemetry ---
+gkx.gokwik.co
+prd-gfp.gokwik.co
+sdk.gokwik.co
+
+# --- Optional, stronger, may break Buy Now buttons on some stores ---
+# Uncomment if you accept that trade-off.
+# pdp.gokwik.co
+
+# --- Never block these: cart, checkout, payment ---
+# api.gokwik.co
+# kwikcart.gokwik.co

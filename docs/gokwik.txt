@@ -1,0 +1,50 @@
+[Adblock Plus 2.0]
+! Title: Leave Me Alone — GoKwik Identity Blocklist
+! Description: Blocks cross-merchant identity resolution and device fingerprinting used on Indian D2C storefronts. Checkout and payment endpoints are deliberately left unblocked.
+! Homepage: https://github.com/vagxrth/leave-me-alone
+! Expires: 3 days
+! Version: 202609070001
+! License: https://creativecommons.org/licenses/by-sa/3.0/
+! Last modified: 7 Sep 2026
+!
+! ---------------------------------------------------------------------------
+! WHAT THIS IS
+!
+! GoKwik's KwikPass module runs on a large share of Indian D2C storefronts.
+! It embeds a hidden iframe served from a single shared origin. That frame
+! holds one persistent user id and a stored phone number, and writes them
+! into each merchant's own first-party storage — so a store you have never
+! logged into can identify you on your first visit.
+!
+! These rules block the identity sync, the event collector and the
+! fingerprinting endpoint. They do NOT block checkout. See the bottom of
+! this file before adding anything.
+! ---------------------------------------------------------------------------
+
+! Identity sync frame (kwikpass.html) and the KwikPass merchant bundle.
+! Path-scoped on purpose: the same host also serves merchant.integration.js,
+! which some themes need to enable their Buy Now / checkout buttons.
+||pdp.gokwik.co/kwikpass/
+
+! KwikPass API — visitor identification, session, phone-number resolution.
+! Endpoints include /kp/api/v1/fp/v-id and /kp/api/v1/fp/g-v-id.
+||gkx.gokwik.co^
+
+! Device fingerprinting. Self-hosted FingerprintJS Pro, served from a
+! first-party-looking subdomain to avoid third-party blocking.
+||prd-gfp.gokwik.co^
+
+! Tracking SDK loader.
+||sdk.gokwik.co^
+
+! ---------------------------------------------------------------------------
+! DELIBERATELY NOT BLOCKED
+!
+! These carry cart, checkout and payment. Blocking them stops people
+! completing purchases on hundreds of storefronts, which is not the goal of
+! this list. Please do not add them.
+!
+!   api.gokwik.co
+!   kwikcart.gokwik.co
+!   pdp.gokwik.co/merchant-integration/
+! ---------------------------------------------------------------------------
