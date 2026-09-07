@@ -141,27 +141,64 @@ a:hover{text-decoration-color:var(--alarm)}
 strong{font-weight:600}
 
 .grab{
-  display:inline-block;font-family:var(--mono);font-size:.85rem;
-  padding:.6rem 1rem;border:1px dashed var(--line);border-radius:2px;
+  display:inline-block;font-family:var(--mono);font-size:.88rem;
+  padding:.8rem 1.15rem;border:1px dashed var(--line);border-radius:2px;
   color:var(--ink);text-decoration:none;cursor:grab;background:var(--raise);
 }
-.grab:hover{border-color:var(--alarm);border-style:solid;color:var(--alarm)}
-.note{font-size:.88rem;color:var(--ink2);margin:.65rem 0 0;max-width:56ch}
+.grab:hover,.grab:focus-visible{border-color:var(--alarm);border-style:solid;color:var(--alarm)}
+.getit{margin:2rem 0 1.6rem}
+.note{font-size:.88rem;color:var(--ink2);margin:.7rem 0 0;max-width:54ch}
 
-pre,.field{
-  font-family:var(--mono);font-size:.78rem;line-height:1.75;
-  background:var(--raise);border:1px solid var(--line);border-radius:2px;
-  padding:.75rem .9rem;overflow-x:auto;margin:.7rem 0 0;
+/* the payoff, shown rather than described */
+.demo{display:grid;grid-template-columns:19.5rem 1fr;gap:1.8rem;align-items:center;margin:1.6rem 0 0}
+.panel{
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  font-family:var(--mono);font-size:.79rem;line-height:1.5;
+  background:var(--raise);
 }
-.field{white-space:nowrap;font-size:.8rem;padding:.6rem .9rem}
-pre{white-space:pre;max-height:19rem;overflow-y:auto}
+.panel-hd{
+  background:var(--alarm);color:#fff;padding:.5rem .8rem;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.panel-hd .x{opacity:.75;font-weight:400}
+.panel-body{padding:.5rem 0}
+.prow{display:flex;gap:.6rem;padding:.22rem .8rem}
+.pk{color:var(--ink2);min-width:6.4rem;flex:none}
+.pv{color:var(--ink);word-break:break-all}
+.pv.hot{color:var(--alarm);font-weight:700}
+.panel-ft{border-top:1px solid var(--line);color:var(--ink2);font-size:.7rem;padding:.45rem .8rem}
+.reads{list-style:none;padding:0;margin:0;display:grid;gap:.7rem}
+.reads li{font-size:.94rem;color:var(--ink2);line-height:1.5}
+.reads b{color:var(--ink);font-weight:600;font-family:var(--mono);font-size:.85em}
 
-dl{margin:1.25rem 0 0;display:grid;gap:.7rem}
-dl div{display:grid;grid-template-columns:7.5rem 1fr;gap:.2rem 1rem}
-dt{font-family:var(--mono);font-size:.78rem;color:var(--alarm);padding-top:.18rem}
-dd{margin:0;font-size:.95rem;color:var(--ink2)}
-dd b{color:var(--ink);font-weight:600}
+/* copyable URLs */
+.urlrow{
+  display:flex;align-items:stretch;border:1px solid var(--line);
+  border-radius:2px;overflow:hidden;margin:.7rem 0 0;max-width:40rem;background:var(--raise);
+}
+.urlrow code{
+  flex:1;min-width:0;font-family:var(--mono);font-size:.78rem;
+  padding:.65rem .8rem;overflow-x:auto;white-space:nowrap;
+}
+.copy{
+  flex:none;font-family:inherit;font-size:.82rem;font-weight:600;
+  border:0;border-left:1px solid var(--line);background:var(--sink);
+  color:var(--ink);padding:0 1rem;cursor:pointer;
+}
+.copy:hover{background:var(--alarm);color:var(--ground)}
+.copy.done{background:var(--calm);color:var(--ground)}
 
+/* the code lives here now, folded away */
+details{border-top:1px solid var(--line);padding:1.2rem 0 0;margin:1.8rem 0 0}
+summary{cursor:pointer;font-size:.95rem;font-weight:600;color:var(--ink)}
+summary:hover{color:var(--alarm)}
+details .copy{border:1px solid var(--line);border-radius:2px;padding:.45rem 1rem;margin:.9rem 0 0}
+pre{
+  font-family:var(--mono);font-size:.72rem;line-height:1.7;
+  background:var(--raise);border:1px solid var(--line);border-radius:2px;
+  padding:.75rem .9rem;overflow:auto;margin:.7rem 0 0;
+  max-height:15rem;white-space:pre;color:var(--ink2);
+}
 .limits{list-style:none;padding:0;margin:1.25rem 0 0;display:grid;gap:.8rem}
 .limits li{padding-left:1.1rem;position:relative;color:var(--ink2);font-size:.96rem;max-width:60ch}
 .limits li::before{content:"";position:absolute;left:0;top:.65em;width:.45rem;height:1px;background:var(--alarm)}
@@ -176,11 +213,12 @@ dd b{color:var(--ink);font-weight:600}
 footer{border-top:1px solid var(--line);padding-top:1.6rem;margin-top:3rem}
 footer p{font-size:.85rem;color:var(--ink2);max-width:62ch;margin-bottom:.7rem}
 
+@media (max-width:640px){
+  .demo{grid-template-columns:1fr;gap:1.2rem}
+}
 @media (max-width:520px){
   body{font-size:16px}
-  dl div{grid-template-columns:1fr}
-  dt{padding-top:0}
-}
+    }
 
 /* one orchestrated moment: the decode resolves on load */
 @media (prefers-reduced-motion:no-preference){
@@ -221,37 +259,60 @@ footer p{font-size:.85rem;color:var(--ink2);max-width:62ch;margin-bottom:.7rem}
 
 <section class="step" id="check">
   <h2>First, see what a shop already has</h2>
-  <p>Open any Indian shopping site, then run this on it. It reads that page's own storage, shows you the result, and sends nothing anywhere.</p>
+  <p>Open any Indian shopping site and run the scanner on it. It reads that page's own storage and shows you this. Nothing is sent anywhere.</p>
 
-  <p><a class="grab" id="bm" href="#">↯ drag me to your bookmarks bar</a></p>
-  <p class="note">Drag it up to your bookmarks bar, then click it while you're on a shop's page. Clicking it here does nothing — this page holds no shop data to read.</p>
+  <div class="demo">
+    <div class="panel" aria-hidden="true">
+      <div class="panel-hd"><span>This shop can identify you</span><span class="x">&#10005;</span></div>
+      <div class="panel-body">
+        <div class="prow"><span class="pk">phone</span><span class="pv hot">+91|95••••••63</span></div>
+        <div class="prow"><span class="pk">networkId</span><span class="pv">019c124c…8eaabf</span></div>
+        <div class="prow"><span class="pk">networkVisits</span><span class="pv hot">390</span></div>
+        <div class="prow"><span class="pk">thisShop</span><span class="pv">1 &#8592; first visit</span></div>
+      </div>
+      <div class="panel-ft">mokobara.com</div>
+    </div>
+    <ul class="reads">
+      <li><b>phone</b> — what that shop holds for you right now.</li>
+      <li><b>networkId</b> — your id across the network. Run it on a second, unrelated shop: same value.</li>
+      <li><b>networkVisits</b> — how many shops have seen you. This is the number that lands.</li>
+      <li><b>thisShop</b> — visits to this one. A <b>1</b> beside a phone number means it knew you on arrival.</li>
+    </ul>
+  </div>
 
-  <h3>Or paste this into the console</h3>
-  <p>More reliable, since some sites block bookmarklets. On the shop's page press <code>⌥⌘I</code> or <code>F12</code>, open Console, and paste:</p>
-  <pre id="snippet">loading…</pre>
+  <div class="getit">
+    <a class="grab" id="bm" href="#">&#8623;&nbsp; drag me to your bookmarks bar</a>
+    <p class="note">Drag it up to your bookmarks bar, then click it while you are on a shop's page. Clicking it here does nothing — this page has no shop data to read.</p>
+  </div>
 
-  <h3>Reading what comes back</h3>
-  <dl>
-    <div><dt>phone</dt><dd>The number that shop holds for you right now.</dd></div>
-    <div><dt>networkId</dt><dd>Your id across the whole network. Run it on a second, unrelated shop — <b>it's the same value</b>.</dd></div>
-    <div><dt>networkVisits</dt><dd>How many shops in the network have seen you. This is the number that tends to land.</dd></div>
-    <div><dt>thisShop</dt><dd>Visits to this shop. A <b>1</b> beside a phone number means it identified you on your first ever visit.</dd></div>
-  </dl>
+  <details>
+    <summary>Not able to drag it? Paste it into the browser console instead</summary>
+    <p class="note">On the shop's page press <code>&#8997;&#8984;I</code> (Mac) or <code>F12</code> (Windows), open <b>Console</b>, and paste this. More reliable, since some sites block bookmarklets.</p>
+    <button class="copy" data-copy="#snippet">Copy the scanner</button>
+    <pre id="snippet">loading…</pre>
+  </details>
 </section>
 
 <section class="step" id="block">
   <h2>Then block it</h2>
-  <p>Five rules. They stop the identity sync, the fingerprinting and the event collectors, and they leave cart and payment alone so you can still buy things.</p>
+  <p>Five rules. They stop the identity sync, the fingerprinting and the event collectors, and leave cart and payment alone so you can still buy things.</p>
 
   <p class="actions"><a class="act act-primary" href="abp:subscribe?location=https%3A%2F%2Fvagxrth.github.io%2Fleave-me-alone%2Fgokwik.txt&amp;title=Leave%20Me%20Alone%20%E2%80%94%20GoKwik%20Identity%20Blocklist">Add to uBlock Origin or AdGuard</a></p>
-  <p class="note">If nothing happens, add it by hand: uBlock Origin → Dashboard → Filter lists → Import, and paste this.</p>
-  <div class="field">https://vagxrth.github.io/leave-me-alone/gokwik.txt</div>
+  <p class="note">If that does nothing, add it by hand. In uBlock Origin: Dashboard, then Filter lists, then Import, and paste this.</p>
+
+  <div class="urlrow">
+    <code>https://vagxrth.github.io/leave-me-alone/gokwik.txt</code>
+    <button class="copy" data-copy="prev">Copy</button>
+  </div>
 
   <h3>Pi-hole, AdGuard Home, NextDNS</h3>
-  <div class="field">https://vagxrth.github.io/leave-me-alone/gokwik-domains.txt</div>
+  <div class="urlrow">
+    <code>https://vagxrth.github.io/leave-me-alone/gokwik-domains.txt</code>
+    <button class="copy" data-copy="prev">Copy</button>
+  </div>
 
   <div class="pullout">
-    <p><strong>The stronger move costs nothing.</strong> Shop in Firefox, Brave or Safari. All three keep third-party frames from sharing storage between sites, which breaks the mechanism itself rather than one hostname at a time — and covers networks this list doesn't know about yet. Chrome doesn't do this.</p>
+    <p><strong>The stronger move costs nothing.</strong> Shop in Firefox, Brave or Safari. All three keep third-party frames from sharing storage between sites, which breaks the mechanism itself rather than one hostname at a time — and covers networks this list does not know about yet. Chrome does not do this.</p>
   </div>
 </section>
 
@@ -317,6 +378,37 @@ var SCANNER = [
 document.getElementById('snippet').textContent = SCANNER;
 var bm = document.getElementById('bm');
 bm.href = 'javascript:' + encodeURIComponent(SCANNER);
+document.querySelectorAll('.copy').forEach(function(btn){
+  var label = btn.textContent;
+  var src = function(){
+    return btn.dataset.copy === 'prev'
+      ? btn.previousElementSibling
+      : document.querySelector(btn.dataset.copy);
+  };
+  var flash = function(msg, ok){
+    btn.textContent = msg;
+    if (ok) btn.classList.add('done');
+    setTimeout(function(){ btn.textContent = label; btn.classList.remove('done'); }, 1800);
+  };
+  btn.addEventListener('click', function(){
+    var el = src();
+    var text = el.textContent.trim();
+    var done = function(){ flash('Copied', true); };
+    // If the clipboard is unavailable (older browser, no permission), select the
+    // text instead so the keyboard shortcut still works rather than dead-ending.
+    var manual = function(){
+      try {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        flash('Selected \u2014 press \u2318C', false);
+      } catch (e) { flash('Select it above', false); }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(manual);
+    } else { manual(); }
+  });
+});
+
 bm.addEventListener('click', function(e){
   e.preventDefault();
   bm.textContent = '↯ drag me up to your bookmarks bar';
