@@ -8,14 +8,14 @@
 <meta name="color-scheme" content="light dark">
 <style>
 @font-face{
-  font-family:'Newsreader';
-  src:url('fonts/newsreader-variable.woff2') format('woff2-variations');
-  font-weight:300 600; font-style:normal; font-display:swap;
+  font-family:'Gloock';
+  src:url('fonts/gloock.woff2') format('woff2');
+  font-weight:400; font-style:normal; font-display:swap;
 }
 @font-face{
-  font-family:'Anek Latin';
-  src:url('fonts/anek-latin-variable.woff2') format('woff2-variations');
-  font-weight:100 800; font-style:normal; font-display:swap;
+  font-family:'Geist';
+  src:url('fonts/geist-variable.woff2') format('woff2-variations');
+  font-weight:100 900; font-style:normal; font-display:swap;
 }
 
 :root{
@@ -29,7 +29,7 @@
   --alarm-soft:#F7E2E7;
   --calm:#12564B;
   --calm-soft:#DEEAE5;
-  --display:'Newsreader',Georgia,'Times New Roman',serif;
+  --display:'Gloock',Georgia,'Times New Roman',serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){
@@ -53,7 +53,7 @@ body{
   margin:0;
   background:var(--ground);
   color:var(--ink);
-  font-family:'Anek Latin',system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:'Geist',system-ui,-apple-system,"Segoe UI",sans-serif;
   font-size:17px;
   font-weight:400;
   line-height:1.6;
@@ -99,7 +99,7 @@ body{
 h1{
   font-family:var(--display);
   font-size:clamp(2.5rem,9vw,4.1rem);
-  font-weight:500;
+  font-weight:400;
   line-height:1.0;
   letter-spacing:-.025em;
   margin:0 0 2.25rem;
@@ -130,7 +130,7 @@ a:focus-visible,.act:focus-visible,summary:focus-visible{
 .step{padding:3.25rem 0;border-top:1px solid var(--line)}
 h2{
   font-family:var(--display);
-  font-size:1.75rem;font-weight:500;line-height:1.15;letter-spacing:-.018em;
+  font-size:1.75rem;font-weight:400;line-height:1.15;letter-spacing:-.018em;
   margin:0 0 .8rem;max-width:27ch;text-wrap:balance;
 }
 h3{font-size:1rem;font-weight:600;margin:2rem 0 .4rem}
@@ -273,7 +273,7 @@ footer p{font-size:.85rem;color:var(--ink2);max-width:62ch;margin-bottom:.7rem}
 <footer>
   <p>This page makes no external requests, sets no cookies and carries no analytics. The typeface is served from this site, not from Google. The scanner runs entirely in your browser and transmits nothing — <a href="https://github.com/vagxrth/leave-me-alone/blob/main/docs/index.html">read the source</a>.</p>
   <p>Everything here describes code publicly served on public web pages, and you can check all of it with the scanner above. Not affiliated with or endorsed by any company named in this project.</p>
-  <p><a href="https://github.com/vagxrth/leave-me-alone">Source and issues on GitHub</a> · CC BY-SA 3.0 · Set in Newsreader and Anek Latin, both under the SIL Open Font License</p>
+  <p><a href="https://github.com/vagxrth/leave-me-alone">Source and issues on GitHub</a> · CC BY-SA 3.0 · Set in Gloock and Geist, both under the SIL Open Font License</p>
 </footer>
 
 </div>
