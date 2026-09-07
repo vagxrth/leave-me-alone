@@ -4,6 +4,10 @@ A blocklist for the cross-merchant identity network that runs on Indian D2C stor
 
 It stops a shop you have never logged into from learning your phone number on your first visit. It does not block checkout, so you can still buy things.
 
+### 👉 [leave-me-alone-1.vercel.app](https://leave-me-alone-1.vercel.app/)
+
+Check what a shop already knows about you, then block it in one click. No install, no account, nothing leaves your browser.
+
 ---
 
 ## The problem
@@ -61,11 +65,15 @@ https://vagxrth.github.io/leave-me-alone/gokwik-domains.txt
 
 DNS blockers match hostnames, not paths, so the DNS list is slightly more conservative by default. See the notes inside that file.
 
-### Mirror
+### Mirrors
+
+The list is also served from [leave-me-alone-1.vercel.app](https://leave-me-alone-1.vercel.app/gokwik.txt) and from jsDelivr:
 
 ```
 https://cdn.jsdelivr.net/gh/vagxrth/leave-me-alone@main/docs/gokwik.txt
 ```
+
+**Subscribe using the `vagxrth.github.io` URLs above, not a mirror.** Those are canonical and will not move; they are what upstream filter lists reference. Mirrors exist for reach and may change.
 
 ---
 

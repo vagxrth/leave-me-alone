@@ -1,6 +1,10 @@
 # Leave Me Alone — GoKwik Identity Blocklist (plain domain format)
 # For Pi-hole, AdGuard Home, NextDNS, hosts files and other DNS blockers.
 # Homepage: https://github.com/vagxrth/leave-me-alone
+#
+# CANONICAL URL — subscribe to this one:
+#   https://vagxrth.github.io/leave-me-alone/gokwik-domains.txt
+# Any other host serving this file is a mirror and may move.
 # License: CC BY-SA 3.0
 # Last modified: 7 Sep 2026
 #

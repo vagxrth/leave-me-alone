@@ -2,8 +2,13 @@
 ! Title: Leave Me Alone — GoKwik Identity Blocklist
 ! Description: Blocks cross-merchant identity resolution and device fingerprinting used on Indian D2C storefronts. Checkout and payment endpoints are deliberately left unblocked.
 ! Homepage: https://github.com/vagxrth/leave-me-alone
+!
+! CANONICAL URL — subscribe to this one:
+!   https://vagxrth.github.io/leave-me-alone/gokwik.txt
+! Any other host serving this file is a mirror and may move. If you added
+! this list from a mirror, please re-add it from the URL above.
 ! Expires: 3 days
-! Version: 202609070002
+! Version: 202609070003
 ! License: https://creativecommons.org/licenses/by-sa/3.0/
 ! Last modified: 7 Sep 2026
 !
