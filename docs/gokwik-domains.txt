@@ -15,6 +15,7 @@
 gkx.gokwik.co
 prd-gfp.gokwik.co
 sdk.gokwik.co
+hits.gokwik.co
 
 # --- Optional, stronger, may break Buy Now buttons on some stores ---
 # Uncomment if you accept that trade-off.

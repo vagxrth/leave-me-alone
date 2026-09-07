@@ -3,7 +3,7 @@
 ! Description: Blocks cross-merchant identity resolution and device fingerprinting used on Indian D2C storefronts. Checkout and payment endpoints are deliberately left unblocked.
 ! Homepage: https://github.com/vagxrth/leave-me-alone
 ! Expires: 3 days
-! Version: 202609070001
+! Version: 202609070002
 ! License: https://creativecommons.org/licenses/by-sa/3.0/
 ! Last modified: 7 Sep 2026
 !
@@ -34,8 +34,12 @@
 ! first-party-looking subdomain to avoid third-party blocking.
 ||prd-gfp.gokwik.co^
 
-! Tracking SDK loader.
+! Analytics SDK loader. Verified as telemetry only: merchant.integration.js
+! loads it as "gokwik-analytics-sdk" and uses it solely to send event hits.
 ||sdk.gokwik.co^
+
+! Event collector. Receives behavioural hits at /api/v1/events.
+||hits.gokwik.co^
 
 ! ---------------------------------------------------------------------------
 ! DELIBERATELY NOT BLOCKED
@@ -47,4 +51,5 @@
 !   api.gokwik.co
 !   kwikcart.gokwik.co
 !   pdp.gokwik.co/merchant-integration/
+!   pdp.gokwik.co/build/gokwik.js          <- this is the checkout bundle
 ! ---------------------------------------------------------------------------

@@ -26,13 +26,14 @@ The result is that the same user id and the same phone number appear in the firs
 | `pdp.gokwik.co/kwikpass/` | the identity sync frame and the KwikPass bundle |
 | `gkx.gokwik.co` | the visitor-identification API |
 | `prd-gfp.gokwik.co` | device fingerprinting |
-| `sdk.gokwik.co` | tracking SDK loader |
+| `sdk.gokwik.co` | analytics SDK loader |
+| `hits.gokwik.co` | behavioural event collector |
 
 ## What it deliberately does not block
 
-`api.gokwik.co`, `kwikcart.gokwik.co`, and `pdp.gokwik.co/merchant-integration/`.
+`api.gokwik.co`, `kwikcart.gokwik.co`, `pdp.gokwik.co/merchant-integration/`, and `pdp.gokwik.co/build/gokwik.js`.
 
-These carry cart, checkout and payment. Blocking them prevents people completing purchases on hundreds of stores, which would make this list something people uninstall rather than something they keep. **Pull requests adding them will be declined.**
+These carry cart, checkout and payment. This was checked rather than assumed: `merchant.integration.js` contains no reference to the KwikPass bundle, fires the `gokwikLoaded` event that enables Buy Now buttons by itself, and loads the checkout from `pdp.gokwik.co/build/gokwik.js` — a different path from the `/kwikpass/` one this list blocks. Its references to `sdk.gokwik.co` and `gkx.gokwik.co` are to an object named `gokwik-analytics-sdk`, used only to send event hits. Blocking them prevents people completing purchases on hundreds of stores, which would make this list something people uninstall rather than something they keep. **Pull requests adding them will be declined.**
 
 ## Install
 
