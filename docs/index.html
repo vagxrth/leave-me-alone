@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leave Me Alone — see who already has your number, then stop them</title>
+<meta name="description" content="A blocklist and scanner for the cross-merchant identity network running on Indian D2C storefronts. Find out what a shop already knows about you, then block it.">
+<style>
+:root{
+  --paper:#EFF2ED; --surface:#F8FAF6; --surface2:#E2E7DE;
+  --ink:#141B17; --muted:#5A6660; --rule:#C8D0C4;
+  --pine:#1F4A3A; --flag:#A8340D; --flagwash:#F3E3DB;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0E1310; --surface:#161C18; --surface2:#1E2620;
+    --ink:#E2E8E0; --muted:#909D96; --rule:#2B352E;
+    --pine:#6FC79C; --flag:#F0844F; --flagwash:#2A1B14;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:47rem;margin:0 auto;padding:0 1.4rem 5rem}
+code,pre,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+header{border-bottom:2px solid var(--ink);padding:3.5rem 0 1.6rem;margin-bottom:2.5rem}
+.eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--flag);margin:0 0 1rem}
+h1{font-size:clamp(2.1rem,6vw,3.1rem);line-height:1.04;letter-spacing:-.02em;margin:0 0 .8rem;text-wrap:balance}
+.lede{font-size:1.12rem;color:var(--muted);margin:0;max-width:34rem;text-wrap:pretty}
+
+section{margin:0 0 3.2rem}
+h2{font-size:1.45rem;line-height:1.2;letter-spacing:-.01em;margin:0 0 .3rem;text-wrap:balance}
+h2 .num{color:var(--flag);font-family:ui-monospace,monospace;font-size:.8rem;letter-spacing:.1em;display:block;margin-bottom:.45rem}
+h3{font-size:1rem;margin:1.6rem 0 .4rem}
+p{margin:0 0 1rem;max-width:36rem;text-wrap:pretty}
+ul{padding-left:1.15rem;margin:0 0 1rem;max-width:36rem}
+li{margin-bottom:.4rem}
+a{color:var(--pine);text-underline-offset:.15em}
+a:hover{color:var(--flag)}
+a:focus-visible{outline:2px solid var(--flag);outline-offset:3px;border-radius:2px}
+strong{font-weight:650}
+
+.btn{
+  display:inline-block;background:var(--flag);color:var(--paper);
+  padding:.75rem 1.3rem;border-radius:3px;text-decoration:none;
+  font-weight:600;font-size:1rem;border:none;cursor:pointer;
+}
+.btn:hover{color:var(--paper);opacity:.9}
+.btn.ghost{
+  background:transparent;color:var(--ink);border:1.5px solid var(--rule);
+  font-family:ui-monospace,monospace;font-size:.85rem;font-weight:500;
+  cursor:grab;
+}
+.btn.ghost:hover{border-color:var(--flag);color:var(--flag);opacity:1}
+.btnrow{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:1.1rem 0}
+.hint{font-size:.86rem;color:var(--muted);margin:.4rem 0 0}
+
+pre{
+  background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--pine);
+  padding:.8rem 1rem; overflow-x:auto; font-size:.8rem; line-height:1.7;
+  margin:.6rem 0 1rem; max-width:40rem;
+}
+.url{
+  background:var(--surface2); border:1px solid var(--rule);
+  padding:.6rem .8rem; font-size:.82rem; overflow-x:auto;
+  white-space:nowrap; margin:.5rem 0 1rem; max-width:40rem;
+}
+.card{
+  background:var(--surface); border:1px solid var(--rule);
+  padding:1.2rem 1.4rem; margin:1.2rem 0; max-width:40rem;
+}
+.card.flag{border-left:3px solid var(--flag);background:var(--flagwash)}
+.card h3{margin-top:0}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;margin:0;font-size:.93rem}
+dt{font-family:ui-monospace,monospace;font-size:.75rem;color:var(--muted);padding-top:.2rem;white-space:nowrap}
+dd{margin:0}
+footer{border-top:1px solid var(--rule);padding-top:1.4rem;font-size:.86rem;color:var(--muted)}
+footer p{max-width:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Indian D2C · identity tracking</p>
+  <h1>Leave Me Alone</h1>
+  <p class="lede">Shops you have never logged into already know your phone number. Find out which ones, then stop it happening again.</p>
+</header>
+
+<section>
+  <p>A single vendor's login module runs on a large share of Indian D2C storefronts. Every one of them embeds a hidden frame from the same shared origin, and that frame carries <strong>one persistent user id and one stored phone number</strong> between them all — writing both into each shop's own storage.</p>
+  <p>The effect is that a shop you have never given anything to can recognise you on your first visit, and pass what you looked at to a WhatsApp campaign tool. You can check this on yourself in about ten seconds.</p>
+</section>
+
+<section>
+  <h2><span class="num">01</span>See what a shop already knows</h2>
+  <p>Open any Indian D2C store, then run the scanner on it. It reads only that page's own storage, shows you the result, and sends nothing anywhere.</p>
+
+  <div class="btnrow">
+    <a class="btn ghost" id="bm" href="#">↯ Drag me to your bookmarks bar</a>
+  </div>
+  <p class="hint">Drag the button up to your bookmarks bar, then click it while you are on a store's page. Dragging is required — clicking it here does nothing, since this page has no shop data to read.</p>
+
+  <h3>Or paste this into the browser console</h3>
+  <p>More reliable, since some sites block bookmarklets. On the store's page press <code>⌥⌘I</code> (Mac) or <code>F12</code> (Windows), open <strong>Console</strong>, and paste:</p>
+  <pre id="snippet">loading…</pre>
+
+  <div class="card">
+    <h3>Reading the result</h3>
+    <dl>
+      <dt>phone</dt><dd>The number that shop currently holds for you, decoded from a key named <code>notifyph</code>. It is stored as base64, which is an encoding, not encryption.</dd>
+      <dt>networkId</dt><dd>Your id across the whole network. Run the scanner on a second, unrelated shop — it is the same value.</dd>
+      <dt>networkVisits</dt><dd>How many shops in the network have seen you. This is the number that tends to surprise people.</dd>
+      <dt>thisShop</dt><dd>How many times you have visited this particular shop. A <code>1</code> next to a phone number means it identified you on your first ever visit.</dd>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>Block it</h2>
+  <p>Five rules. They stop the identity sync, the fingerprinting and the event collectors, and they deliberately leave cart and payment alone so you can still buy things.</p>
+
+  <div class="btnrow">
+    <a class="btn" href="abp:subscribe?location=https%3A%2F%2Fvagxrth.github.io%2Fleave-me-alone%2Fgokwik.txt&amp;title=Leave%20Me%20Alone%20%E2%80%94%20GoKwik%20Identity%20Blocklist">Add to uBlock Origin / AdGuard</a>
+  </div>
+  <p class="hint">If that button does nothing, add it by hand: uBlock Origin → Dashboard → Filter lists → Import → paste the URL below.</p>
+  <div class="url mono">https://vagxrth.github.io/leave-me-alone/gokwik.txt</div>
+
+  <h3>Pi-hole, AdGuard Home, NextDNS</h3>
+  <div class="url mono">https://vagxrth.github.io/leave-me-alone/gokwik-domains.txt</div>
+
+  <h3>The stronger move, which costs nothing</h3>
+  <p>Do your shopping in <strong>Firefox, Brave or Safari</strong>. All three partition third-party frame storage by default, which breaks the mechanism structurally rather than one hostname at a time — and it covers networks this list does not know about. Chrome does not do this.</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span>Get the record deleted</h2>
+  <p>Blocking stops new collection. It does not remove what is already held — that takes a written request, and under India's DPDP framework you are entitled to make one.</p>
+  <p>A template is in the repository: <a href="https://github.com/vagxrth/leave-me-alone/blob/main/erasure-letter.md">erasure-letter.md</a>. Run the scanner first, so you can name your own network id in the letter. A request that quotes the identifier is much harder to answer with a form reply.</p>
+</section>
+
+<section>
+  <h2><span class="num">04</span>What this does not do</h2>
+  <div class="card flag">
+    <ul>
+      <li><strong>It does not undo existing exposure.</strong> If your number is already in the network, shops that have it can still message you. Blocking stops the next shop learning it.</li>
+      <li><strong>It does not cover every vendor.</strong> This list covers one network, the largest one. Others operate on the same storefronts.</li>
+      <li><strong>It is not a privacy suite.</strong> Analytics, session recording and ad pixels are untouched. Use this alongside a general privacy list, not instead of one.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p><a href="https://github.com/vagxrth/leave-me-alone">Source, evidence and issues on GitHub</a> · CC BY-SA 3.0</p>
+  <p>This page makes no external requests, sets no cookies and contains no analytics. The scanner runs entirely in your browser and transmits nothing. Not affiliated with, or endorsed by, any company named in this project. Every claim here describes code publicly served on public web pages, and can be checked with the scanner above.</p>
+</footer>
+
+</div>
+
+<script>
+var SCANNER = [
+"(function(){",
+"  var ls=function(k){try{return localStorage.getItem(k)}catch(e){return null}};",
+"  var ck=function(n){try{var m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):null}catch(e){return null}};",
+"  var b64=function(v){if(!v)return null;try{var x=atob(decodeURIComponent(v));return /^[\\x20-\\x7E]+$/.test(x)?x:null}catch(e){return null}};",
+"  var id=ls('kp_user_id')||ck('kp_user_id');",
+"  var ph=b64(ls('notifyph')||ck('notifyph'));",
+"  var mid=(window.merchantInfo&&window.merchantInfo.mid)||null;",
+"  var frame=[].slice.call(document.querySelectorAll('iframe')).some(function(f){return f.src&&f.src.indexOf('gokwik')>-1});",
+"  var visits=null,shop=null;",
+"  try{var t=JSON.parse(ls('usr_trck')||'[]');if(t[0]){visits=t[0].kp_count;shop=t[0].m_count}}catch(e){}",
+"  var onNetwork=!!(id||ph||mid||frame);",
+"  var R={site:location.host,onNetwork:onNetwork,phone:ph||'(none stored)',networkId:id||'(none)',networkVisits:visits,thisShop:shop,merchantId:mid,syncFrame:frame};",
+"  console.log('%c Leave Me Alone ','background:#A8340D;color:#fff;font-weight:bold',R);",
+"  var old=document.getElementById('lma-panel');if(old)old.remove();",
+"  var p=document.createElement('div');p.id='lma-panel';",
+"  p.style.cssText='position:fixed;z-index:2147483647;top:16px;right:16px;width:340px;max-width:calc(100vw - 32px);background:#11150F;color:#E6EBE3;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace;border:1px solid #3A463C;border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.45);overflow:hidden';",
+"  var rows='';",
+"  var add=function(k,v,hi){rows+='<div style=\"display:flex;gap:10px;padding:5px 14px\"><span style=\"color:#8A968E;min-width:96px\">'+k+'</span><span style=\"color:'+(hi?'#F0844F':'#E6EBE3')+';word-break:break-all;font-weight:'+(hi?'700':'400')+'\">'+String(v)+'</span></div>'};",
+"  if(onNetwork){",
+"    add('phone',R.phone,!!ph);",
+"    add('networkId',R.networkId?String(R.networkId).slice(0,8)+'…'+String(R.networkId).slice(-6):'(none)',false);",
+"    add('networkVisits',visits===null?'(not recorded)':visits,visits!==null);",
+"    add('thisShop',shop===null?'(not recorded)':shop+(shop===1?'  ← first visit':''),false);",
+"    add('merchantId',mid||'(not exposed)',false);",
+"    add('syncFrame',frame?'present':'not on this page',false);",
+"  }else{",
+"    rows='<div style=\"padding:8px 14px;color:#8A968E\">No identity module detected on this page.</div>';",
+"  }",
+"  p.innerHTML='<div style=\"display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:'+(onNetwork?'#A8340D':'#1F4A3A')+';color:#fff;font-weight:700\"><span>'+(onNetwork?'This shop can identify you':'Clean on this page')+'</span><span id=\"lma-x\" style=\"cursor:pointer;padding:0 4px;font-weight:400\">✕</span></div><div style=\"padding:8px 0\">'+rows+'</div><div style=\"padding:8px 14px;border-top:1px solid #2A342D;color:#8A968E;font-size:11px\">'+location.host+' · full object logged to console</div>';",
+"  document.body.appendChild(p);",
+"  document.getElementById('lma-x').onclick=function(){p.remove()};",
+"})();"
+].join("\n");
+
+document.getElementById('snippet').textContent = SCANNER;
+document.getElementById('bm').href = 'javascript:' + encodeURIComponent(SCANNER);
+document.getElementById('bm').addEventListener('click', function(e){
+  e.preventDefault();
+  alert('Drag this button to your bookmarks bar, then click it while you are on a shop’s page. There is nothing to scan here.');
+});
+</script>
+</body>
+</html>
