@@ -1,0 +1,12 @@
+{
+  "name": "leave-me-alone-tests",
+  "private": true,
+  "type": "module",
+  "description": "Checks the extension against a live GoKwik store in a throwaway Chrome profile.",
+  "scripts": {
+    "smoke": "node smoke.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.12.0"
+  }
+}

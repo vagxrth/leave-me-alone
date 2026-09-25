@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Chrome writes this into an unpacked extension; the Web Store rejects packages that contain it
+extension/_metadata/
+
+# Packaged builds
+dist/
+*.zip
+
+# Local environment and logs
+.env
+.env.*
+*.log
+
+# OS files
+.DS_Store

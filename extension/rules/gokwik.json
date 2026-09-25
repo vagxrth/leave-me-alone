@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "priority": 2,
+    "action": { "type": "block" },
+    "condition": { "urlFilter": "||pdp.gokwik.co/kwikpass/" }
+  },
+  {
+    "id": 2,
+    "priority": 2,
+    "action": { "type": "block" },
+    "condition": { "urlFilter": "||pdp.gokwik.co/cart-get-tokens.html" }
+  },
+  {
+    "id": 3,
+    "priority": 2,
+    "action": { "type": "block" },
+    "condition": { "requestDomains": ["prd-gfp.gokwik.co"] }
+  },
+  {
+    "id": 4,
+    "priority": 2,
+    "action": { "type": "block" },
+    "condition": { "urlFilter": "||gkx.gokwik.co/kp/api/v1/fp/" }
+  },
+  {
+    "id": 5,
+    "priority": 2,
+    "action": { "type": "block" },
+    "condition": { "urlFilter": "||gkx.gokwik.co/gke/" }
+  },
+  {
+    "id": 6,
+    "priority": 2,
+    "action": { "type": "block" },
+    "condition": { "requestDomains": ["sdk.gokwik.co"] }
+  },
+  {
+    "id": 100,
+    "priority": 1,
+    "action": { "type": "allow" },
+    "condition": { "requestDomains": ["gokwik.co", "gokwik.io"] }
+  }
+]

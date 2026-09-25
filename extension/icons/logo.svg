@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Quiet hours: a message on do-not-disturb. Peacock body, cream moon. 96px art with 16px padding for the store icon. -->
+  <g transform="translate(16 16)">
+    <defs><mask id="moon-cut"><rect width="96" height="96" fill="#fff"/><circle cx="59" cy="32" r="16" fill="#000"/></mask></defs>
+    <path fill="#0C7F8C" d="M24 4h48a24 24 0 0 1 24 24v26a24 24 0 0 1-24 24H40l-27 16a3 3 0 0 1-4.4-3.2L12 75.5A24 24 0 0 1 0 54V28A24 24 0 0 1 24 4Z"/>
+    <circle cx="47" cy="41" r="21" fill="#FFF1D2" mask="url(#moon-cut)"/>
+  </g>
+</svg>

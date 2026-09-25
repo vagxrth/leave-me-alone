@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Leave Me Alone",
+  "version": "0.1.0",
+  "description": "Stops GoKwik from recognising you on stores you only browse, so they can't WhatsApp you. Checkout keeps working.",
+  "minimum_chrome_version": "110",
+  "permissions": [
+    "declarativeNetRequest",
+    "activeTab",
+    "scripting",
+    "storage",
+    "browsingData"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "gokwik",
+        "enabled": true,
+        "path": "rules/gokwik.json"
+      }
+    ]
+  },
+  "action": {
+    "default_title": "Leave Me Alone",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

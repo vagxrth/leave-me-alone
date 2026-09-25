@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leave Me Alone</title>
+  <link rel="stylesheet" href="popup.css">
+  <script type="module" src="popup.js"></script>
+</head>
+<body>
+  <header class="brand">
+    <img src="icons/icon-32.png" alt="" width="22" height="22">
+    <span class="brand-name">Leave Me Alone</span>
+  </header>
+
+  <section id="welcome" class="note" hidden>
+    <p>Your browser may still hold GoKwik data from earlier shopping. It’s how stores recognise you.</p>
+    <div class="actions">
+      <button id="welcome-forget" type="button" class="button primary">Forget it now</button>
+      <button id="welcome-dismiss" type="button" class="button plain">Not now</button>
+    </div>
+  </section>
+
+  <main id="status" class="status" data-state="loading">
+    <div class="bubble">
+      <p id="site" class="site">This page</p>
+      <h1 id="status-title" class="headline">Checking this page…</h1>
+    </div>
+    <p id="status-text" class="status-text"></p>
+
+    <section id="report" class="report" hidden>
+      <h2 class="report-title">Stopped on this page</h2>
+      <ul id="blocked" class="receipt"></ul>
+      <div class="report-foot">
+        <p class="checkout-note">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Checkout works as usual.
+        </p>
+        <button id="pause" type="button" class="button plain">Pause on this site</button>
+      </div>
+    </section>
+
+    <div id="site-actions" class="actions" hidden>
+      <button id="resume" type="button" class="button primary" hidden>Resume protection</button>
+      <button id="reload" type="button" class="button plain" hidden>Reload page</button>
+    </div>
+  </main>
+
+  <section class="data">
+    <button id="forget" type="button" class="button secondary wide">Forget my GoKwik data</button>
+    <p id="forget-result" class="result" role="status" hidden></p>
+    <label class="switch" for="forget-on-startup">
+      <input type="checkbox" id="forget-on-startup" role="switch">
+      <span class="switch-track" aria-hidden="true"></span>
+      <span>Also forget it every time Chrome starts</span>
+    </label>
+  </section>
+
+  <footer class="footer">
+    <button id="cookie-settings" type="button" class="link">Block third-party cookies in Chrome</button>
+    <span id="version" class="version"></span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,244 @@
+@font-face {
+  font-family: "Anek Latin";
+  src: url("fonts/AnekLatin-Variable.woff2") format("woff2");
+  font-weight: 100 800;
+  font-stretch: 75% 125%;
+  font-display: block;
+}
+
+/* Peacock & Cream: peacock teal is the brand and cream its light partner; soft amber marks "paused".
+   Each status bubble has its own ground and ink. */
+:root {
+  --paper: #FFFFFF;
+  --ink: #15232A;
+  --ink-2: #566A72;
+  --line: #E1E9EB;
+  --line-strong: #C4D3D6;
+  --accent: #0C7F8C;
+  --accent-ink: #FFFFFF;
+  --accent-hover: #0A6D78;
+  --note: #FFF6E2;
+  --note-line: #EFD9A6;
+
+  --bubble-protected: #0C7F8C;
+  --bubble-protected-ink: #FFFFFF;
+  --bubble-protected-sub: rgb(255 255 255 / 0.85);
+  --bubble-paused: #F4BC4C;
+  --bubble-paused-ink: #2A1E00;
+  --bubble-paused-sub: rgb(42 30 0 / 0.74);
+  --bubble-neutral: #EDF3F4;
+  --bubble-neutral-ink: #15232A;
+  --bubble-neutral-sub: #566A72;
+
+  --font: "Anek Latin", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0C191C;
+    --ink: #E7F2F3;
+    --ink-2: #9BB3B8;
+    --line: #1F3237;
+    --line-strong: #34494E;
+    --accent: #62D2DA;
+    --accent-ink: #06181A;
+    --accent-hover: #86DEE4;
+    --note: #2A2310;
+    --note-line: #57481F;
+
+    --bubble-protected: #12626C;
+    --bubble-protected-ink: #F1FDFE;
+    --bubble-protected-sub: rgb(241 253 254 / 0.8);
+    --bubble-paused: #F4BC4C;
+    --bubble-paused-ink: #2A1E00;
+    --bubble-paused-sub: rgb(42 30 0 / 0.74);
+    --bubble-neutral: #182A2E;
+    --bubble-neutral-ink: #E7F2F3;
+    --bubble-neutral-sub: #9BB3B8;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+/* Layout rules below set display on several blocks; this keeps the hidden attribute authoritative. */
+[hidden] { display: none !important; }
+
+body {
+  width: 340px;
+  margin: 0;
+  padding: 16px 16px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 420 13.5px/1.45 var(--font);
+  display: grid;
+  gap: 16px;
+}
+
+p, h1, h2 { margin: 0; }
+
+/* Header */
+.brand { display: flex; align-items: center; gap: 8px; }
+.brand-name { font-size: 16px; font-weight: 700; font-stretch: 92%; letter-spacing: -0.01em; }
+
+/* Status: the bubble carries the answer */
+.status { display: grid; gap: 14px; }
+
+.bubble {
+  --ground: var(--bubble-neutral);
+  --bubble-ink: var(--bubble-neutral-ink);
+  --bubble-sub: var(--bubble-neutral-sub);
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px 16px;
+  margin-bottom: 8px;
+  background: var(--ground);
+  color: var(--bubble-ink);
+  border-radius: 16px 16px 16px 4px;
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -9px;
+  width: 16px;
+  height: 10px;
+  background: var(--ground);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+/* The first answer appears at once; later changes (pause, resume) fade so you see what changed. */
+body[data-ready] .bubble { transition: background-color 160ms ease, color 160ms ease; }
+body[data-ready] .bubble::after { transition: background-color 160ms ease; }
+.status[data-state="protected"] .bubble,
+.status[data-state="quiet"] .bubble {
+  --ground: var(--bubble-protected);
+  --bubble-ink: var(--bubble-protected-ink);
+  --bubble-sub: var(--bubble-protected-sub);
+}
+.status[data-state="paused"] .bubble {
+  --ground: var(--bubble-paused);
+  --bubble-ink: var(--bubble-paused-ink);
+  --bubble-sub: var(--bubble-paused-sub);
+}
+
+.site { font-size: 12.5px; font-weight: 500; color: var(--bubble-sub); overflow-wrap: anywhere; }
+.headline {
+  font-size: 23px;
+  line-height: 1.12;
+  font-weight: 680;
+  font-stretch: 86%;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.status-text { color: var(--ink-2); }
+.status-text:empty { display: none; }
+
+/* What was stopped, set like a shop bill */
+.report { display: grid; gap: 8px; }
+.report-title { font-size: 13.5px; font-weight: 650; }
+.receipt { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.receipt li { display: flex; align-items: baseline; gap: 8px; }
+.receipt .label { color: var(--ink-2); }
+.receipt .leader { flex: 1; min-width: 16px; border-bottom: 1.5px dotted var(--line-strong); transform: translateY(-4px); }
+.receipt .count { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-2); min-width: 1.5ch; text-align: right; }
+.receipt li.hit .label,
+.receipt li.hit .count { color: var(--ink); }
+
+.report-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 2px; }
+.checkout-note { display: flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 560; }
+.checkout-note svg { flex: none; }
+.report-foot .button.plain { padding: 6px 0 6px 8px; }
+
+/* Buttons */
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.button {
+  font: 600 13px/1 var(--font);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.button:active { transform: translateY(1px); }
+.button:disabled { opacity: 0.6; cursor: default; transform: none; }
+.button.primary { background: var(--accent); color: var(--accent-ink); }
+.button.primary:hover { background: var(--accent-hover); }
+.button.secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.button.secondary:hover { border-color: var(--accent); }
+.button.plain { background: none; color: var(--accent); padding-inline: 8px; }
+.button.plain:hover { text-decoration: underline; text-underline-offset: 3px; }
+.button.wide { width: 100%; }
+
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* First run */
+.note {
+  display: grid;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--note);
+  border: 1px solid var(--note-line);
+  border-radius: 12px;
+}
+
+/* Your data */
+.data { display: grid; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line); }
+.result { color: var(--accent); font-weight: 560; }
+
+.switch { position: relative; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.switch-track {
+  flex: none;
+  position: relative;
+  width: 30px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transition: background-color 150ms ease;
+}
+.switch-track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+  transition: transform 150ms ease;
+}
+.switch input:checked + .switch-track { background: var(--accent); }
+.switch input:checked + .switch-track::after { transform: translateX(12px); }
+.switch input:focus-visible + .switch-track { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+}
+.link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+  font: 500 12.5px/1.3 var(--font);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.version { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .button:active { transform: none; }
+}
