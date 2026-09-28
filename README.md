@@ -10,11 +10,13 @@ Many Indian D2C stores (Mokobara, Stoa Paris, Salt Oral Care, XtremeX and others
 
 It blocks only the parts of GoKwik that identify you:
 
-| What | Blocked address | What it did |
-| --- | --- | --- |
-| Cross-store identity | `pdp.gokwik.co/kwikpass/…`, `pdp.gokwik.co/cart-get-tokens.html` | Hidden frames that read GoKwik's cookie and pass your number or login token to the store you're on |
-| Device fingerprinting | `prd-gfp.gokwik.co`, `gkx.gokwik.co/kp/api/v1/fp/…` | Fingerprint (FingerprintJS) service that recognises a device without cookies |
-| Browsing analytics | `gkx.gokwik.co/gke/…`, `sdk.gokwik.co` | Sends each product you view to GoKwik for "you were looking at…" follow-ups |
+
+| What                  | Blocked address                                                  | What it did                                                                                        |
+| --------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Cross-store identity  | `pdp.gokwik.co/kwikpass/…`, `pdp.gokwik.co/cart-get-tokens.html` | Hidden frames that read GoKwik's cookie and pass your number or login token to the store you're on |
+| Device fingerprinting | `prd-gfp.gokwik.co`, `gkx.gokwik.co/kp/api/v1/fp/…`              | Fingerprint (FingerprintJS) service that recognises a device without cookies                       |
+| Browsing analytics    | `gkx.gokwik.co/gke/…`, `sdk.gokwik.co`                           | Sends each product you view to GoKwik for "you were looking at…" follow-ups                        |
+
 
 GoKwik's cart and checkout are left alone. When you decide to buy, you type your number at checkout as usual.
 
@@ -31,18 +33,9 @@ GoKwik's cart and checkout are left alone. When you decide to buy, you type your
 
 Also recommended: Settings → Privacy and security → Third-party cookies → **Block third-party cookies**. Tested: with this on, GoKwik can't carry one ID between stores.
 
-## On your phone
-
-Chrome for Android doesn't run extensions. Instead:
-
-- Chrome → Settings → Privacy and security → Third-party cookies → **Block third-party cookies**.
-- Chrome → Settings → Site settings → All sites → search `gokwik` → **Clear & reset**.
-- With a DNS blocker (NextDNS, AdGuard DNS), block `prd-gfp.gokwik.co` and `sdk.gokwik.co`. Don't block `pdp.gokwik.co` or `gkx.gokwik.co`; checkout needs them.
-- On iPhone Safari, turn on Settings → Apps → Safari → Advanced → Advanced Tracking and Fingerprinting Protection → All Browsing.
-
 ## What it doesn't do
 
-- Stores that already have your number keep it. In WhatsApp, use Stop, Block and Report, and ask the brand and GoKwik (grievance-officer@gokwik.co) to delete it.
+- Stores that already have your number keep it. In WhatsApp, use Stop, Block and Report, and ask the brand and GoKwik ([grievance-officer@gokwik.co](mailto:grievance-officer@gokwik.co)) to delete it.
 - Typing your number into a GoKwik checkout gives it to that store, which may message you if you leave without buying.
 - Other checkout networks (Shopflo, Razorpay Magic Checkout, Shiprocket) aren't covered yet.
 - GoKwik can change its addresses at any time. Run the test below to confirm the rules still match.
@@ -67,11 +60,13 @@ Set `CHROME_PATH` if Chrome isn't at the default macOS location.
 - `extension/background.js`: sets up the badge and clears GoKwik data at startup when that setting is on.
 - `extension/popup.*`: the toolbar popup.
 
-| Permission | Why |
-| --- | --- |
-| `declarativeNetRequest` | Block GoKwik's tracking addresses |
+
+| Permission               | Why                                                                                                                 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `declarativeNetRequest`  | Block GoKwik's tracking addresses                                                                                   |
 | `activeTab`, `scripting` | When you open the popup, read which site you're on and whether it includes GoKwik. Nothing runs on pages otherwise. |
-| `storage` | Your settings |
-| `browsingData` | Clear GoKwik's cookies and storage when you ask, or at startup |
+| `storage`                | Your settings                                                                                                       |
+| `browsingData`           | Clear GoKwik's cookies and storage when you ask, or at startup                                                      |
+
 
 The extension makes no network requests of its own and sends nothing anywhere.
