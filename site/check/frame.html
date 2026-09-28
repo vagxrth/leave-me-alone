@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Leave Me Alone browser check</title>
+</head>
+<body>
+<script>
+// Loaded in a hidden frame by the Leave Me Alone site, which must be on a different site from this page.
+// It asks the browser one thing: can this frame use cookies it shares with other sites?
+// It sets and reads no cookies, contacts no one, and answers only the page that embedded it.
+(async () => {
+  let parentOrigin = null;
+  try {
+    if (location.ancestorOrigins && location.ancestorOrigins.length) parentOrigin = location.ancestorOrigins[0];
+    else if (document.referrer) parentOrigin = new URL(document.referrer).origin;
+  } catch (error) {
+    parentOrigin = null;
+  }
+  if (window.parent === window || !parentOrigin || parentOrigin === 'null') return;
+
+  let access = 'unsupported';
+  if (typeof document.hasStorageAccess === 'function') {
+    try {
+      access = (await document.hasStorageAccess()) ? 'shared' : 'separate';
+    } catch (error) {
+      access = 'error';
+    }
+  }
+  window.parent.postMessage({ type: 'lma-check', access }, parentOrigin);
+})();
+</script>
+</body>
+</html>

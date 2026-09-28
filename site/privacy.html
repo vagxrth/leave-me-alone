@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy | Leave Me Alone</title>
+  <meta name="description" content="Leave Me Alone doesn't collect anything about you: not on this website, and not in the Chrome extension.">
+  <meta name="theme-color" content="#0C7F8C">
+  <link rel="canonical" href="https://leavemealonee.vercel.app/privacy.html">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preload" href="fonts/AnekLatin-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="img/logo.svg" alt="" width="30" height="30">Leave Me Alone</a>
+      <nav class="site-nav" aria-label="Site">
+        <a href="./#fix" class="nav-keep">Fix it</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="doc">
+    <div class="wrap">
+      <div class="prose">
+        <h1>Privacy</h1>
+        <p class="lede">Leave Me Alone exists to stop companies from quietly collecting your details. It doesn’t collect any itself.</p>
+        <p class="small">Last updated 26 September 2026.</p>
+
+        <h2>This website</h2>
+        <ul>
+          <li>It sets no cookies and runs no analytics, ads or tracking pixels.</li>
+          <li>Its fonts, images and code are served from this site. Nothing loads from other companies’ servers.</li>
+          <li>“Check my browser” loads a small page from our second address, lma-check.vercel.app, and asks your browser one question: can a site use cookies from a different site? It runs only when you press the button. The answer stays on the page; it isn’t sent or saved anywhere.</li>
+          <li>“Send on WhatsApp” opens WhatsApp with a message ready to send. Nothing is sent unless you send it.</li>
+          <li>The site is hosted on Vercel. Like any web host, Vercel receives visitors’ IP addresses to serve the site and keep it secure, under <a href="https://vercel.com/legal/privacy-notice">its own privacy policy</a>. We haven’t turned on Vercel’s analytics.</li>
+        </ul>
+
+        <h2>The Chrome extension</h2>
+        <p>The extension works entirely inside your browser. It has no server, makes no network requests of its own, and sends nothing to us or anyone else.</p>
+        <ul>
+          <li>It stores two settings on your computer: whether to forget GoKwik’s data each time Chrome starts, and whether you’ve seen the welcome note.</li>
+          <li>When you pause it on a store, it adds a rule in your browser that lets GoKwik load on that store. Resuming removes the rule.</li>
+        </ul>
+        <p>Why it asks for each permission:</p>
+        <ul>
+          <li><strong>Block content on any page</strong> (declarativeNetRequest): Chrome blocks GoKwik’s tracking requests using a fixed list of rules. The extension itself never sees the requests.</li>
+          <li><strong>activeTab</strong> and <strong>scripting</strong>: when you open the extension, it checks whether the current page uses GoKwik and counts what was blocked. When you press “Forget my GoKwik data”, it removes the items GoKwik saved on that store. It can only do this on the tab you’re looking at, and only after you click.</li>
+          <li><strong>browsingData</strong>: deletes the cookies and saved data belonging to GoKwik’s own addresses.</li>
+          <li><strong>storage</strong>: keeps the two settings above.</li>
+        </ul>
+
+        <h2>Questions</h2>
+        <p>Ask on <a href="https://github.com/vagxrth/leave-me-alone/issues">GitHub</a>. The code for the site and the extension is public there, so you can check all of this yourself.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="img/logo.svg" alt="" width="26" height="26">Leave Me Alone</a>
+      <p>Not affiliated with GoKwik, WhatsApp or any store.</p>
+      <p class="footer-links">
+        <a href="https://github.com/vagxrth/leave-me-alone">Code on GitHub</a>
+        <a href="./">Home</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
