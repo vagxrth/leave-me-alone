@@ -24,333 +24,160 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/AnekLatin-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    // The hero chat plays a short story when it comes into view, unless the visitor prefers less motion.
+    if ('IntersectionObserver' in window && matchMedia('(prefers-reduced-motion: no-preference)').matches) document.documentElement.classList.add('story');
+  </script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-
-  <header class="site-header">
-    <div class="wrap">
-      <a class="brand" href="./"><img src="img/logo.svg" alt="" width="30" height="30">Leave Me Alone</a>
-      <nav class="site-nav" aria-label="Sections">
-        <a href="#how">How it works</a>
-        <a href="#fix" class="nav-keep">Fix it</a>
-        <a href="#messages">Stop the messages</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-    </div>
+  <header class="site-header wrap">
+    <a class="brand" href="./"><img src="img/logo.svg" alt="" width="28" height="28">Leave Me Alone</a>
   </header>
 
   <main id="main">
-    <section class="hero section">
-      <div class="wrap">
-        <div class="hero-copy">
-          <h1>You only looked. So how did they get your number?</h1>
-          <p class="lede">Many Indian online stores run the same hidden code from <strong>GoKwik</strong>, a checkout company. If you ever typed your phone number into one of them, the others can recognise you and send you WhatsApp messages about what you looked at.</p>
-          <div class="actions">
-            <a class="button primary" href="#fix" data-phone-tab>Fix it on your phone</a>
-            <a class="button secondary" href="#computer">Get the Chrome extension</a>
-          </div>
-        </div>
-
-        <figure class="chat">
-          <div class="chat-panel">
-            <div class="chat-from"><span class="avatar" aria-hidden="true">S</span>A store you only browsed</div>
-            <p class="msg in">Hey Priya, we noticed you were checking out our new collection yesterday. Here’s an exclusive 25% off just for you!<time>11:47 AM</time></p>
-            <p class="msg out">Leave me alone.
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><defs><mask id="reply-moon"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="8.5" r="7" fill="#000"/></mask></defs><circle cx="11" cy="12" r="9" fill="currentColor" mask="url(#reply-moon)"/></svg>
-              <time>11:48 AM</time></p>
-          </div>
-          <figcaption>The first message is GoKwik’s own example, from <a href="https://www.gokwik.co/blog/how-top-d2c-brands-use-kwikpass-and-kwikengage-to-drive-growth">its blog post</a> about recognising shoppers and messaging them on WhatsApp.</figcaption>
-        </figure>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">You only looked. So how did they get your number?</h1>
+        <p class="lede">Many Indian stores run the same hidden code from GoKwik, a checkout company. Type your number into one of them, and the others can recognise you and message you on WhatsApp.</p>
+        <a class="button primary" href="#fix">How to stop it?</a>
       </div>
+      <figure class="chat">
+        <div class="chat-panel">
+          <div class="chat-from">
+            <span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M5.5 8.5h13l-1.1 11.2a1.5 1.5 0 0 1-1.5 1.3H8.1a1.5 1.5 0 0 1-1.5-1.3L5.5 8.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 11V7a3 3 0 0 1 6 0v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="chat-name">A store you only browsed<small>Business account</small></span>
+          </div>
+          <p class="chat-note">You never gave this store your number</p>
+          <div class="incoming">
+            <p class="msg in">Hey Priya, <mark>we noticed you were checking out our new collection yesterday</mark>. Here’s an exclusive 25% off just for you!<time>11:47 AM</time></p>
+            <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <p class="msg out">Leave me alone.
+            <svg class="moon-glyph" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><defs><mask id="reply-moon"><rect width="24" height="24" fill="#fff"/><circle class="bite" cx="15.5" cy="8.5" r="7" fill="#000"/></mask></defs><circle cx="11" cy="12" r="9" fill="currentColor" mask="url(#reply-moon)"/></svg>
+            <span class="stamp"><time>11:48 AM</time><svg viewBox="0 0 18 12" width="16" height="11" role="img" aria-label="Read"><path d="M1.5 6.5 4.5 9.5 10.5 2.5M7.8 8.2 9.2 9.5 15.2 2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p>
+        </div>
+        <figcaption>The first message is GoKwik’s own example, from <a href="https://www.gokwik.co/blog/how-top-d2c-brands-use-kwikpass-and-kwikengage-to-drive-growth">its blog</a>.</figcaption>
+      </figure>
     </section>
 
-    <section class="section band" id="how" aria-labelledby="how-title">
-      <div class="wrap how">
-        <div class="section-head">
-          <h2 id="how-title">How a store you never told gets your number</h2>
-          <ol class="steps">
-            <li>
-              <h3>You type your number on one store</h3>
-              <p>At checkout, for an OTP login, or in a pop-up offering a discount, on any store that uses GoKwik. GoKwik says it’s “Trusted by 20,000+ leading D2C brands”.</p>
-            </li>
-            <li>
-              <h3>GoKwik remembers your browser</h3>
-              <p>It saves an ID in a year-long cookie on its own domain. Its hidden code on every other GoKwik store can read that cookie.</p>
-            </li>
-            <li>
-              <h3>Another store recognises you</h3>
-              <p>You open a different GoKwik store and type nothing. GoKwik can tell it who you are and which products you looked at. Then a WhatsApp message can follow.</p>
-            </li>
-          </ol>
-        </div>
-
-        <aside class="found" aria-labelledby="found-title">
-          <h3 id="found-title">What we found</h3>
-          <ul>
-            <li>On 26 September 2026 we opened six stores in a fresh browser: Mamaearth, boAt, Bombay Shaving Company, mCaffeine, The Man Company and Plum. The same GoKwik ID followed us into all six, and GoKwik counted each visit.</li>
-            <li>171 of the 225 GoKwik stores we checked run this identity code, which GoKwik calls KwikPass.</li>
-            <li>All 158 KwikPass stores whose settings we could read use GoKwik’s “opt-out” consent mode. In GoKwik’s code, that mode starts the “Notify me for orders, updates &amp; offers” box already ticked.</li>
-          </ul>
-          <blockquote class="quote">
-            <p>“Identify up to 30% visitors, even those who don’t sign up. Track them across visits.”</p>
-            <cite>GoKwik’s <a href="https://www.gokwik.co/product/kwikpass">KwikPass product page</a></cite>
-          </blockquote>
-        </aside>
+    <section class="part wrap" id="fix" aria-labelledby="fix-title">
+      <div class="part-head">
+        <h2 id="fix-title">Make it stop</h2>
+        <p>It takes a minute. Checkout keeps working; you’ll just type your number yourself when you buy.</p>
       </div>
-    </section>
-
-    <section class="section" id="fix" aria-labelledby="fix-title">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 id="fix-title">Fix it in a minute</h2>
-          <p>Pick the device you shop on. Checkout keeps working; you’ll just type your number yourself when you buy.</p>
-        </div>
-
+      <div class="part-body">
         <div class="tabs" role="tablist" aria-label="Your device" hidden>
           <button type="button" role="tab" id="tab-android" aria-controls="android" aria-selected="true">Android</button>
           <button type="button" role="tab" id="tab-iphone" aria-controls="iphone" aria-selected="false">iPhone</button>
           <button type="button" role="tab" id="tab-computer" aria-controls="computer" aria-selected="false">Computer</button>
         </div>
-
         <div class="panels no-js-panels">
           <div class="panel" id="android" role="tabpanel" aria-labelledby="tab-android">
             <h3 class="panel-title">On Android, in Chrome</h3>
             <ol class="steps">
               <li>
-                <h3>Block third-party cookies</h3>
-                <p>This is the main fix. It stops GoKwik’s cookie ID from following you between stores. We tested it: the six stores that shared one GoKwik ID each got a different one, and checkout still worked.</p>
-                <p class="path"><span>Chrome menu ⋮</span><i>›</i><span>Settings</span><i>›</i><span>Privacy and security</span><i>›</i><span>Third-party cookies</span><i>›</i><span>Block third-party cookies</span></p>
+                <h4>Block third-party cookies</h4>
+                <p>This stops GoKwik’s ID from following you between stores.</p>
+                <p class="path"><span class="hop"><span class="chip">Chrome menu ⋮</span><i>›</i></span><span class="hop"><span class="chip">Settings</span><i>›</i></span><span class="hop"><span class="chip">Privacy and security</span><i>›</i></span><span class="hop"><span class="chip">Third-party cookies</span><i>›</i></span><span class="chip">Block third-party cookies</span></p>
               </li>
               <li>
-                <h3>Delete what GoKwik already saved</h3>
-                <p>This removes the ID GoKwik saved. Then repeat it for each store that already messages you, searching for the store’s name. That logs you out of the store.</p>
-                <p class="path"><span>Chrome menu ⋮</span><i>›</i><span>Settings</span><i>›</i><span>Site settings</span><i>›</i><span>All sites</span><i>›</i><span>Search “gokwik”</span><i>›</i><span>Clear &amp; reset</span></p>
-              </li>
-              <li class="check-step" hidden>
-                <h3>Check it worked</h3>
-                <div class="check">
-                  <p>This asks your browser one question: can a site read cookies from a different site? It never contacts GoKwik or any store.</p>
-                  <button type="button" class="button primary small check-button">Check my browser</button>
-                  <div class="check-result" role="status" hidden></div>
-                </div>
+                <h4>Clear what GoKwik already saved</h4>
+                <p class="path"><span class="hop"><span class="chip">Chrome menu ⋮</span><i>›</i></span><span class="hop"><span class="chip">Settings</span><i>›</i></span><span class="hop"><span class="chip">Site settings</span><i>›</i></span><span class="hop"><span class="chip">All sites</span><i>›</i></span><span class="hop"><span class="chip">Search “gokwik”</span><i>›</i></span><span class="chip">Clear &amp; reset</span></p>
+                <p>Repeat it for any store that already messages you, searching for its name instead.</p>
               </li>
             </ol>
-            <details class="more">
-              <summary>Extra protection for DNS blocker users</summary>
-              <div>
-                <p>If you use a DNS blocker such as NextDNS or AdGuard DNS, add <strong>prd-gfp.gokwik.co</strong> (device fingerprinting) and <strong>sdk.gokwik.co</strong> (browsing reports).</p>
-                <p>Don’t block pdp.gokwik.co or gkx.gokwik.co. Checkout needs them.</p>
-              </div>
-            </details>
           </div>
-
           <div class="panel" id="iphone" role="tabpanel" aria-labelledby="tab-iphone">
             <h3 class="panel-title">On iPhone, in Safari</h3>
+            <p class="panel-note">Safari already keeps each site’s cookies separate, so GoKwik’s ID can’t follow you. Two settings add to that:</p>
             <ol class="steps">
               <li>
-                <h3>Cookies are already covered</h3>
-                <p>Safari keeps each site’s cookies separate, so GoKwik’s cookie ID can’t follow you between stores.</p>
+                <h4>Turn on fingerprinting protection</h4>
+                <p class="path"><span class="hop"><span class="chip">Settings</span><i>›</i></span><span class="hop"><span class="chip">Apps</span><i>›</i></span><span class="hop"><span class="chip">Safari</span><i>›</i></span><span class="hop"><span class="chip">Advanced</span><i>›</i></span><span class="hop"><span class="chip">Advanced Tracking and Fingerprinting Protection</span><i>›</i></span><span class="chip">All Browsing</span></p>
               </li>
               <li>
-                <h3>Check fingerprint protection is on</h3>
-                <p>It makes your phone harder to recognise without cookies. Choose All Browsing.</p>
-                <p class="path"><span>Settings</span><i>›</i><span>Apps</span><i>›</i><span>Safari</span><i>›</i><span>Advanced</span><i>›</i><span>Advanced Tracking and Fingerprinting Protection</span><i>›</i><span>All Browsing</span></p>
-              </li>
-              <li>
-                <h3>Delete what GoKwik already saved</h3>
-                <p class="path"><span>Settings</span><i>›</i><span>Apps</span><i>›</i><span>Safari</span><i>›</i><span>Advanced</span><i>›</i><span>Website Data</span><i>›</i><span>Search “gokwik”</span><i>›</i><span>Swipe left, Delete</span></p>
-              </li>
-              <li class="check-step" hidden>
-                <h3>Check it worked</h3>
-                <div class="check">
-                  <p>This asks your browser one question: can a site read cookies from a different site? It never contacts GoKwik or any store.</p>
-                  <button type="button" class="button primary small check-button">Check my browser</button>
-                  <div class="check-result" role="status" hidden></div>
-                </div>
+                <h4>Delete what GoKwik already saved</h4>
+                <p class="path"><span class="hop"><span class="chip">Settings</span><i>›</i></span><span class="hop"><span class="chip">Apps</span><i>›</i></span><span class="hop"><span class="chip">Safari</span><i>›</i></span><span class="hop"><span class="chip">Advanced</span><i>›</i></span><span class="hop"><span class="chip">Website Data</span><i>›</i></span><span class="hop"><span class="chip">Search “gokwik”</span><i>›</i></span><span class="chip">Swipe left, Delete</span></p>
               </li>
             </ol>
           </div>
-
           <div class="panel" id="computer" role="tabpanel" aria-labelledby="tab-computer">
             <h3 class="panel-title">On a computer, in Chrome, Edge or Brave</h3>
             <ol class="steps">
               <li>
-                <h3>Install the Leave Me Alone extension</h3>
-                <p>It blocks GoKwik’s identity code, flags stores that use it, and leaves checkout working. Until it’s listed in the Chrome Web Store, install it from GitHub:</p>
-                <a class="button primary small" href="https://github.com/vagxrth/leave-me-alone/archive/refs/heads/main.zip">Download from GitHub</a>
-                <p class="small">Unzip it, open <strong>chrome://extensions</strong>, turn on <strong>Developer mode</strong>, click <strong>Load unpacked</strong> and choose the <strong>extension</strong> folder inside.</p>
+                <h4>Install the Leave Me Alone extension</h4>
+                <p>It blocks GoKwik’s tracking and leaves checkout alone.</p>
+                <a class="button primary small" href="https://github.com/vagxrth/leave-me-alone/archive/refs/heads/main.zip"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Download from GitHub</a>
+                <p class="small">Unzip it, open <strong>chrome://extensions</strong>, turn on <strong>Developer mode</strong>, click <strong>Load unpacked</strong> and pick the <strong>extension</strong> folder inside.</p>
               </li>
               <li>
-                <h3>Block third-party cookies too</h3>
-                <p class="path"><span>Settings</span><i>›</i><span>Privacy and security</span><i>›</i><span>Third-party cookies</span><i>›</i><span>Block third-party cookies</span></p>
+                <h4>Block third-party cookies</h4>
+                <p class="path"><span class="hop"><span class="chip">Settings</span><i>›</i></span><span class="hop"><span class="chip">Privacy and security</span><i>›</i></span><span class="hop"><span class="chip">Third-party cookies</span><i>›</i></span><span class="chip">Block third-party cookies</span></p>
               </li>
               <li>
-                <h3>Forget what GoKwik saved</h3>
-                <p>Open the extension and click <strong>Forget my GoKwik data</strong>, once on each store that already messages you.</p>
-              </li>
-              <li class="check-step" hidden>
-                <h3>Check it worked</h3>
-                <div class="check">
-                  <p>This asks your browser one question: can a site read cookies from a different site? It never contacts GoKwik or any store.</p>
-                  <button type="button" class="button primary small check-button">Check my browser</button>
-                  <div class="check-result" role="status" hidden></div>
-                </div>
+                <h4>Clear what GoKwik already saved</h4>
+                <p>On a store that messages you, open the extension and click <strong>Forget my GoKwik data</strong>.</p>
               </li>
             </ol>
           </div>
         </div>
+        <div class="check" hidden>
+          <div class="check-row">
+            <div>
+              <h3>Check it worked</h3>
+              <p>Asks the browser you’re using right now whether sites can share cookies. It never contacts GoKwik.</p>
+            </div>
+            <button type="button" class="button primary small check-button">Check this browser</button>
+          </div>
+          <div class="check-result" role="status" hidden></div>
+        </div>
       </div>
     </section>
 
-    <section class="section band" id="messages" aria-labelledby="messages-title">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 id="messages-title">Stop the messages you already get</h2>
-          <p>The fixes above stop new stores recognising you. Stores that already have your number keep it, so deal with them directly.</p>
-        </div>
-        <ol class="steps prose">
+    <section class="part wrap" id="how" aria-labelledby="how-title">
+      <div class="part-head">
+        <h2 id="how-title">How they got your number</h2>
+        <p>It comes down to one hidden cookie that GoKwik reads on every store running its login tool.</p>
+      </div>
+      <div class="part-body">
+        <ol class="steps">
           <li>
-            <h3>Tap “Not interested”, then “Stop”</h3>
-            <p>WhatsApp shows these under a business’s offers and announcements. Stop turns off that business’s marketing messages; order updates still arrive.</p>
+            <h3>You type your number into one store</h3>
+            <p>At checkout, for an OTP login, or in a discount pop-up, on a store running GoKwik’s login tool, KwikPass. We found it on 171 of the 225 GoKwik stores we checked.</p>
           </li>
           <li>
-            <h3>Block and report</h3>
-            <p>Tap the business’s name at the top of the chat, then <strong>Block</strong> and <strong>Report</strong>. Reports lower the business’s standing with WhatsApp, which can limit its marketing messages.</p>
+            <h3>GoKwik tags your browser</h3>
+            <p>Each of those stores loads a hidden frame from <code>pdp.gokwik.co</code>. It saves an ID in a cookie called <code>kp_user_id</code> that lasts a year. The cookie belongs to GoKwik, not the store, so the same frame can read it on every store.</p>
           </li>
           <li>
-            <h3>Ask them to delete your number</h3>
-            <p>Send one of the emails below. Online stores must acknowledge a complaint within 48 hours.</p>
+            <h3>Another store asks who you are</h3>
+            <p>Open a different KwikPass store and its hidden frame reads the same ID. GoKwik can now tell that store it’s you, and its tracking code reports which products you look at.</p>
+          </li>
+          <li>
+            <h3>The WhatsApp arrives</h3>
+            <p>GoKwik also sells stores a WhatsApp marketing tool, KwikEngage. The message at the top of this page is GoKwik’s own example.</p>
           </li>
         </ol>
-
-        <div class="templates" id="emails">
-          <article class="template">
-            <h3>To the store</h3>
-            <p class="to">Send it to the store’s support or grievance email, usually listed on its Contact or Privacy page.</p>
-            <pre id="email-store">Subject: Unsolicited WhatsApp message: where did you get my number?
-
-Hello,
-
-On [date] I received a WhatsApp marketing message from your business on [your number]. I never gave you my number or agreed to WhatsApp messages. I had only browsed your website.
-
-Please:
-1. Tell me how and from whom you got my number (for example, GoKwik KwikPass or another partner).
-2. Stop all WhatsApp, SMS and email marketing to me.
-3. Delete my personal data from your systems and marketing tools, and ask your service providers to do the same.
-
-Under the Consumer Protection (E-Commerce) Rules, 2020, please acknowledge this complaint within 48 hours.
-
-Regards,
-[your name]</pre>
-            <div class="actions"><button type="button" class="button secondary small" data-copy="email-store">Copy email</button><span class="copied" role="status"></span></div>
-          </article>
-
-          <article class="template">
-            <h3>To GoKwik</h3>
-            <p class="to">Send it to GoKwik’s grievance officer: <strong>grievance-officer@gokwik.co</strong></p>
-            <pre id="email-gokwik">Subject: Delete my data from the KwikPass / GoKwik shopper network
-
-Hello,
-
-My mobile number is [your number]. I have received WhatsApp marketing from brands such as [brand names] after only browsing their websites. I never gave these brands my number or agreed to their messages. These stores run GoKwik KwikPass.
-
-Please:
-1. Tell me what personal data GoKwik holds linked to my number, including device and fingerprint identifiers, and which merchants received my number through KwikPass.
-2. Delete my number and every linked identifier from your identity and single sign-on systems, and stop sharing my number with merchants I haven’t bought from.
-3. Withdraw any marketing consent recorded for me, and confirm that no GoKwik service will send me marketing.
-
-Your grievance policy commits to acknowledging within 24 hours and responding within 15 days.
-
-Regards,
-[your name]</pre>
-            <div class="actions"><button type="button" class="button secondary small" data-copy="email-gokwik">Copy email</button><span class="copied" role="status"></span></div>
-          </article>
+        <div class="policy">
+          <h3>GoKwik’s privacy policy contradicts itself.</h3>
+          <p>They say:</p>
+          <blockquote>“We understand that the information of the users is not shared across ecommerce platforms.”</blockquote>
+          <p>They also say:</p>
+          <blockquote>“We may share your personal information … With Business Partners: Including merchants … and marketing collaborators.”</blockquote>
+          <p>And in our test, the same GoKwik ID showed up on six different stores, with a counter adding up every visit.</p>
+          <p class="source">Source: <a href="https://www.gokwik.co/privacy-policy">GoKwik’s privacy policy</a>, sections 1 and 4 (<a href="https://web.archive.org/web/20261001053154/https://www.gokwik.co/en_gb/privacy-policy?_gc=1">archived copy</a> from 1 October 2026)</p>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="legal" aria-labelledby="legal-title">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 id="legal-title">Is this allowed?</h2>
-          <p>If you never gave a store your number, WhatsApp’s own rules say it shouldn’t message you. Here’s where things stand.</p>
-        </div>
-        <div class="facts">
-          <div class="fact">
-            <h3>WhatsApp’s rules</h3>
-            <p>A business may only message you if you gave it your mobile number and agreed to hear from it on WhatsApp. It must also respect your block or opt-out.</p>
-            <a href="https://whatsappbusiness.com/policy/">WhatsApp Business Messaging Policy</a>
-          </div>
-          <div class="fact">
-            <h3>India’s data law</h3>
-            <p>Under the Digital Personal Data Protection Act, consent must be free, specific, informed and given by a clear affirmative action. Its main rules apply from 14 May 2027.</p>
-            <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2190014">DPDP Rules, 2025</a>
-          </div>
-          <div class="fact">
-            <h3>Consumer complaints</h3>
-            <p>Online stores must have a grievance officer who acknowledges complaints within 48 hours. If that fails, call the National Consumer Helpline on 1915.</p>
-            <a href="https://consumerhelpline.gov.in/">National Consumer Helpline</a>
-          </div>
-        </div>
-        <p class="small disclaimer">This is general information, not legal advice.</p>
-      </div>
-    </section>
-
-    <section class="section band" id="share" aria-labelledby="share-title">
-      <div class="wrap share">
-        <h2 id="share-title">Send this to someone who keeps getting these messages</h2>
-        <p class="lede">Most people have no idea why stores they only browsed are messaging them.</p>
-        <div class="actions">
-          <button type="button" class="button primary share-button" hidden>Share this page</button>
-          <a class="button secondary" id="whatsapp-share" href="https://wa.me/?text=Getting%20WhatsApp%20messages%20from%20stores%20you%20only%20browsed%3F%20This%20explains%20how%20they%20get%20your%20number%2C%20and%20how%20to%20stop%20it%3A%20https%3A%2F%2Fleavemealonee.vercel.app%2F">Send on WhatsApp</a>
-          <button type="button" class="button secondary" data-copy-link>Copy link</button>
-          <span class="copied" role="status"></span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="faq" aria-labelledby="faq-title">
-      <div class="wrap">
-        <div class="section-head"><h2 id="faq-title">Questions</h2></div>
-        <div class="faq">
-          <details>
-            <summary>Will checkout still work?</summary>
-            <p>Yes. With third-party cookies blocked, and separately with the extension, GoKwik’s checkout opened and asked for a phone number on every store we tried, including Mamaearth and boAt. When you buy, you type your number yourself. One thing changes with the extension: a store’s GoKwik login button may not open, because GoKwik runs that login inside the part we block. You can log in at checkout, or pause the extension for that store.</p>
-          </details>
-          <details>
-            <summary>Will this stop every marketing message?</summary>
-            <p>No. It stops stores recognising you through GoKwik. Stores that already have your number keep it; use the steps under “Stop the messages you already get”.</p>
-          </details>
-          <details>
-            <summary>Is it only GoKwik?</summary>
-            <p>GoKwik is the network we found and tested. Other checkout companies may work differently, and we haven’t tested them yet.</p>
-          </details>
-          <details>
-            <summary>Does this site collect anything about me?</summary>
-            <p>No. It sets no cookies and runs no analytics, and the extension sends nothing anywhere. The <a href="privacy.html">privacy page</a> has the details.</p>
-          </details>
-          <details>
-            <summary>Who made this?</summary>
-            <p>An independent project, not affiliated with GoKwik, WhatsApp or any store. The code, the tests and the research notes are <a href="https://github.com/vagxrth/leave-me-alone">public on GitHub</a>.</p>
-          </details>
-        </div>
+        <p class="why"><strong>Why the fix works:</strong> <a href="#fix">blocking third-party cookies</a> stops GoKwik’s frame from reading its cookie on other stores, so each store sees a stranger. With cookies blocked, those six stores got six different IDs.</p>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <a class="brand" href="./"><img src="img/logo.svg" alt="" width="26" height="26">Leave Me Alone</a>
-      <p>Not affiliated with GoKwik, WhatsApp or any store named on this page. Stores named here were checked on 26 September 2026 and may have changed their setup since.</p>
-      <p class="footer-links">
-        <a href="https://github.com/vagxrth/leave-me-alone">Code on GitHub</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="https://github.com/easylist/easylist/issues/25671">Our EasyPrivacy request</a>
-      </p>
-    </div>
+  <footer class="site-footer wrap">
+    <p class="spread">Know someone getting these? <a href="https://wa.me/?text=Getting%20WhatsApp%20messages%20from%20stores%20you%20only%20browsed%3F%20This%20explains%20how%20they%20get%20your%20number%2C%20and%20how%20to%20stop%20it%3A%20https%3A%2F%2Fleavemealonee.vercel.app%2F">Send them this page on WhatsApp</a>.</p>
+    <p class="fine"><a href="privacy.html">Privacy</a><a href="https://github.com/vagxrth/leave-me-alone">GitHub</a></p>
   </footer>
 </body>
 </html>

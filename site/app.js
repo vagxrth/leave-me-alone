@@ -1,13 +1,23 @@
-// Leave Me Alone site: device tabs, the browser check, copy and share.
+// Leave Me Alone site: the hero chat story, device tabs, and the browser check.
 // Everything here runs in the visitor's browser. Nothing is sent anywhere.
+
+/* The hero chat plays its story once, when it comes into view. styles.css holds the timing. */
+
+const chat = document.querySelector('.chat');
+if (chat && document.documentElement.classList.contains('story')) {
+  const watcher = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    chat.classList.add('play');
+    watcher.disconnect();
+  }, { threshold: 0.4 });
+  watcher.observe(chat);
+}
+
+/* Device tabs: open the visitor's own device, or the one named in the link (#android, #iphone, #computer). */
 
 const ua = navigator.userAgent;
 const isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-const phoneTab = isIOS ? 'iphone' : 'android';
 const deviceTab = isIOS ? 'iphone' : /Android/.test(ua) ? 'android' : 'computer';
-const canonical = document.querySelector('link[rel="canonical"]')?.href || location.href.split('#')[0];
-
-/* Device tabs */
 
 const tablist = document.querySelector('[role="tablist"]');
 const tabs = tablist ? [...tablist.querySelectorAll('[role="tab"]')] : [];
@@ -47,17 +57,6 @@ if (tabs.length) {
     selectTab(tabs[(next + tabs.length) % tabs.length].getAttribute('aria-controls'), true);
   });
 
-  // Links to #android, #iphone or #computer open that tab. "Fix it on your phone" opens the visitor's phone tab.
-  document.addEventListener('click', (event) => {
-    const link = event.target.closest('a[href^="#"]');
-    if (!link) return;
-    const id = link.hasAttribute('data-phone-tab') ? phoneTab : link.getAttribute('href').slice(1);
-    if (!tabs.some((tab) => tab.getAttribute('aria-controls') === id)) return;
-    event.preventDefault();
-    history.pushState(null, '', `#${id}`);
-    showFix(id);
-  });
-
   addEventListener('hashchange', () => showFix(location.hash.slice(1)));
 }
 
@@ -66,17 +65,17 @@ if (tabs.length) {
    shares with other sites. That's what GoKwik's frame relies on. The frame never contacts GoKwik or
    any store, and the answer stays on this page. */
 
-// What to do about shared cookies, in the words of each device's steps.
+// What to do about shared cookies on the device being tested, whichever tab is open.
 const FIX_FOR = {
-  android: 'Do step 1, then check again.',
+  android: 'Turn on “Block third-party cookies” in Chrome’s settings, then check again.',
   iphone: 'Turn on Prevent Cross-Site Tracking in Settings › Apps › Safari, then check again.',
-  computer: 'Do step 2, then check again.',
+  computer: 'Turn on “Block third-party cookies” in your browser’s settings, then check again.',
 };
 
 const RESULTS = {
   checking: () => ['Checking…'],
-  exposed: (panel) => ['Your browser shares cookies between sites.', `GoKwik’s ID can follow you from store to store. ${FIX_FOR[panel] || 'Block third-party cookies, then check again.'}`],
-  protected: () => ['Your browser keeps each site’s cookies separate.', 'GoKwik’s cookie ID can’t follow you between stores.'],
+  exposed: () => ['Your browser shares cookies between sites.', `GoKwik’s ID can follow you from store to store. ${FIX_FOR[deviceTab]}`],
+  protected: () => ['Your browser keeps each site’s cookies separate.', 'GoKwik’s ID can’t follow you between stores.'],
   unknown: () => ['We couldn’t check this browser.', 'Follow the steps above anyway.'],
 };
 
@@ -102,28 +101,27 @@ function checkFrameUrl() {
   }
 }
 
-function showResult(state) {
-  for (const box of document.querySelectorAll('.check-result')) {
-    const [title, detail] = RESULTS[state](box.closest('.panel')?.id);
-    const heading = document.createElement('strong');
-    heading.textContent = title;
-    box.replaceChildren(heading);
-    if (detail) {
-      const text = document.createElement('span');
-      text.textContent = detail;
-      box.append(text);
-    }
-    box.dataset.state = state;
-    box.hidden = false;
-  }
-  for (const button of document.querySelectorAll('.check-button')) {
-    button.disabled = state === 'checking';
-    button.textContent = state === 'checking' ? 'Checking…' : 'Check again';
-  }
-}
-
+const check = document.querySelector('.check');
+const checkButton = check?.querySelector('.check-button');
+const checkResult = check?.querySelector('.check-result');
 const frameUrl = checkFrameUrl();
 let checking = false;
+
+function showResult(state) {
+  const [title, detail] = RESULTS[state]();
+  const heading = document.createElement('strong');
+  heading.textContent = title;
+  checkResult.replaceChildren(heading);
+  if (detail) {
+    const text = document.createElement('span');
+    text.textContent = detail;
+    checkResult.append(text);
+  }
+  checkResult.dataset.state = state;
+  checkResult.hidden = false;
+  checkButton.disabled = state === 'checking';
+  checkButton.textContent = state === 'checking' ? 'Checking…' : 'Check again';
+}
 
 function runCheck() {
   if (checking) return;
@@ -152,58 +150,7 @@ function runCheck() {
   document.body.append(frame);
 }
 
-if (frameUrl) {
-  for (const step of document.querySelectorAll('.check-step')) step.hidden = false;
-  for (const button of document.querySelectorAll('.check-button')) button.addEventListener('click', runCheck);
-}
-
-/* Copy and share */
-
-function say(button, message) {
-  const status = button.parentElement.querySelector('.copied');
-  if (!status) return;
-  status.textContent = message;
-  clearTimeout(status.timer);
-  status.timer = setTimeout(() => { status.textContent = ''; }, 3000);
-}
-
-async function copy(text, fallbackNode) {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    if (!fallbackNode) return false;
-    // Older browsers: select the text so the visitor can copy it themselves.
-    const range = document.createRange();
-    range.selectNodeContents(fallbackNode);
-    getSelection().removeAllRanges();
-    getSelection().addRange(range);
-    return false;
-  }
-}
-
-for (const button of document.querySelectorAll('[data-copy]')) {
-  button.addEventListener('click', async () => {
-    const source = document.getElementById(button.dataset.copy);
-    const copied = await copy(source.textContent, source);
-    say(button, copied ? 'Copied' : 'Selected. Use your browser’s Copy.');
-  });
-}
-
-for (const button of document.querySelectorAll('[data-copy-link]')) {
-  button.addEventListener('click', async () => {
-    say(button, (await copy(canonical)) ? 'Link copied' : canonical);
-  });
-}
-
-const shareButton = document.querySelector('.share-button');
-if (shareButton && navigator.share) {
-  shareButton.hidden = false;
-  shareButton.addEventListener('click', () => {
-    navigator.share({
-      title: 'Leave Me Alone',
-      text: 'Getting WhatsApp messages from stores you only browsed? Here’s how they get your number, and how to stop it.',
-      url: canonical,
-    }).catch(() => {});
-  });
+if (check && frameUrl) {
+  check.hidden = false;
+  checkButton.addEventListener('click', runCheck);
 }
