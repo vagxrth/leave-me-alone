@@ -1,7 +1,7 @@
 // Loads the extension into a throwaway Chrome profile and checks it against a live GoKwik store.
 // Nothing is typed into any form and no order is placed.
 //
-//   npm run smoke                      # uses XtremeX
+//   npm run smoke                      # uses Mamaearth
 //   npm run smoke -- <product-url>     # any GoKwik store product page
 //   CHROME_PATH=/path/to/chrome npm run smoke
 import puppeteer from 'puppeteer-core';
@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const EXTENSION_DIR = path.resolve(here, '../extension');
 const CHROME = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const PRODUCT_URL = process.argv[2] || 'https://xtremexmartialarts.com/products/metalx-unisex-joggers';
+const PRODUCT_URL = process.argv[2] || 'https://mamaearth.in/products/tea-tree-face-wash';
 const SITE = new URL(PRODUCT_URL).hostname.replace(/^www\./, '');
 const GOKWIK = /gokwik\.(co|io)\//;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

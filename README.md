@@ -2,6 +2,8 @@
 
 A browser extension that stops GoKwik's shopper network from recognising you on stores you only browse. That recognition is why a brand can WhatsApp you after you looked at a product and left. Checkout keeps working.
 
+How it works, in plain words: https://leavemealonee.vercel.app
+
 ## Why
 
 Many Indian D2C stores (Mokobara, Stoa Paris, Salt Oral Care, XtremeX and others) embed GoKwik KwikPass. On every page it loads hidden frames from `pdp.gokwik.co` that read a 365-day GoKwik cookie set on *other* stores. It hands your phone number to the store you're on, and reports the products you view. GoKwik sells this as "identify up to 30% of visitors, even those who don't sign up", followed by WhatsApp messages.
@@ -45,11 +47,11 @@ Also recommended: Settings → Privacy and security → Third-party cookies → 
 ```sh
 cd test
 npm install
-npm run smoke                      # checks xtremexmartialarts.com
+npm run smoke                      # checks mamaearth.in
 npm run smoke -- <product-url>     # checks any GoKwik store's product page
 ```
 
-The test installs the extension into a throwaway Chrome profile. It checks that the identity, fingerprinting and analytics requests are blocked, that no GoKwik ID cookie is created, and that GoKwik's checkout still opens and asks for a phone number. It also checks pause, resume and forget, including that forgetting on a store removes GoKwik's saved copies while keeping the cart. It never types into a form or places an order. On 25 Sep 2026 it passed 12/12 on xtremexmartialarts.com, stoaparis.com and saltoralcare.com.
+The test installs the extension into a throwaway Chrome profile. It checks that the identity, fingerprinting and analytics requests are blocked, that no GoKwik ID cookie is created, that the popup flags the store, and that GoKwik's checkout still opens and asks for a phone number. It also checks pause, resume and forget, including that forgetting on a store removes GoKwik's saved copies while keeping the cart, and that the popup has nothing to block on a site without GoKwik. It never types into a form or places an order. On 10 Oct 2026 it passed 12/12 on mamaearth.in, boat-lifestyle.com and bombayshavingcompany.com.
 
 Set `CHROME_PATH` if Chrome isn't at the default macOS location.
 
@@ -59,14 +61,19 @@ Set `CHROME_PATH` if Chrome isn't at the default macOS location.
 - `extension/lib.js`: which rule belongs to which category, pause and resume (a dynamic `allowAllRequests` rule for the site), and data clearing.
 - `extension/background.js`: sets up the badge and clears GoKwik data at startup when that setting is on.
 - `extension/popup.*`: the toolbar popup.
+- `site/`: the website at leavemealonee.vercel.app (plain HTML, CSS and JS). Vercel deploys it from `main`.
 
 
-| Permission               | Why                                                                                                                 |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `declarativeNetRequest`  | Block GoKwik's tracking addresses                                                                                   |
-| `activeTab`, `scripting` | When you open the popup, read which site you're on and whether it includes GoKwik. Nothing runs on pages otherwise. |
-| `storage`                | Your settings                                                                                                       |
-| `browsingData`           | Clear GoKwik's cookies and storage when you ask, or at startup                                                      |
+| Permission               | Why                                                                                                                                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `declarativeNetRequest`  | Block GoKwik's tracking addresses                                                                                                                                               |
+| `activeTab`, `scripting` | When you open the popup, check whether the page uses GoKwik. When you click "Forget my GoKwik data", remove the GoKwik items that store saved. Nothing runs on pages otherwise. |
+| `storage`                | Your settings                                                                                                                                                                   |
+| `browsingData`           | Clear GoKwik's cookies and storage when you ask, or at startup                                                                                                                  |
 
 
 The extension makes no network requests of its own and sends nothing anywhere.
+
+## License
+
+[MIT](LICENSE). The Anek Latin font in `extension/fonts` and `site/fonts` is under the SIL Open Font License (`OFL.txt` next to it).
