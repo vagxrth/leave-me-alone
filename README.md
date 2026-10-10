@@ -6,7 +6,7 @@ How it works, in plain words: https://leavemealonee.vercel.app
 
 ## Why
 
-Many Indian D2C stores (Mokobara, Stoa Paris, Salt Oral Care, XtremeX and others) embed GoKwik KwikPass. On every page it loads hidden frames from `pdp.gokwik.co` that read a 365-day GoKwik cookie set on *other* stores. It hands your phone number to the store you're on, and reports the products you view. GoKwik sells this as "identify up to 30% of visitors, even those who don't sign up", followed by WhatsApp messages.
+Many Indian D2C stores (Mamaearth, boAt, Bombay Shaving Company, Plum, mCaffeine and others) embed GoKwik KwikPass. On every page it loads hidden frames from `pdp.gokwik.co` that read a 365-day GoKwik cookie set on *other* stores. It hands your phone number to the store you're on, and reports the products you view. GoKwik sells this as "identify up to 30% of visitors, even those who don't sign up", followed by WhatsApp messages.
 
 ## What it does
 
