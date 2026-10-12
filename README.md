@@ -28,12 +28,12 @@ GoKwik's cart and checkout are left alone. When you decide to buy, you type your
 
 ## Install (Chrome, Edge or Brave on a computer)
 
-1. Open `chrome://extensions` (or `edge://extensions`, `brave://extensions`).
-2. Turn on **Developer mode**.
-3. Click **Load unpacked** and choose the `extension` folder.
-4. Pin the extension, open it, and click **Forget it now** to clear GoKwik data from earlier shopping.
+1. Add it from the [Chrome Web Store](https://chromewebstore.google.com/detail/leave-me-alone/fbebldgcbklknjopemfamkplbplnmcga). Edge and Brave install it from there too.
+2. Pin the extension, open it, and click **Forget it now** to clear GoKwik data from earlier shopping.
 
 Also recommended: Settings → Privacy and security → Third-party cookies → **Block third-party cookies**. Tested: with this on, GoKwik can't carry one ID between stores.
+
+To run it from this repo instead, open `chrome://extensions` (or `edge://extensions`, `brave://extensions`), turn on **Developer mode**, click **Load unpacked** and choose the `extension` folder.
 
 ## What it doesn't do
 
